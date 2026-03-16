@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BE electronic sistems - Solucions elèctriques i electròniques</title>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --blau-marí: #0a2340;
+  --blau-mitjà: #2874c5;
+  --blau-suau: #e8f2fd;
+  --gris-clar: #e6ebf1;
+  --gris-mig: #8f9aa6;
+  --gris-fosc: #2f3a47;
+  --blanc: #ffffff;
+  --shadow: 0 12px 30px rgba(15, 34, 60, 0.08);
+}
+* { box-sizing: border-box; }
+body {
+  margin:0; font-family:'Inter',sans-serif; color: var(--gris-fosc); background: linear-gradient(140deg, #fbfdff 0%, #f3f8ff 100%);
+  scroll-behavior: smooth;
+}
+a { text-decoration:none; color: inherit; }
+main { padding-top: 110px; }
+
+header {
+  position: fixed; top:0; left:0; right:0; z-index: 999;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(18, 33, 63, 0.12);
+  border-bottom: 1px solid var(--gris-clar);
+}
+.nav-inner {
+  max-width: 1180px; margin:0 auto; padding: 14px 20px; display:flex; align-items:center; justify-content:space-between;
+}
+.brand {
+  display:flex; flex-direction:column; gap:2px;
+  line-height:1.1; font-weight:800;
+}
+.brand h1 { margin:0; font-size:1.6rem; color: var(--blau-marí); letter-spacing:0.5px; }
+.brand span { color: #667b90; font-size:0.95rem; font-weight:500; }
+.nav-links {
+  display:flex; align-items:center; gap:26px; margin-left:42px;
+}
+.nav-links a{
+  color: var(--gris-fosc); font-size:0.94rem; font-weight:600; text-transform: uppercase; letter-spacing:0.02em;
+  transition: color .2s, transform .2s;
+}
+.nav-links a:hover { color: var(--blau-mitjà); transform: translateY(-1px); }
+
+.cta-btn{
+  margin-left: 22px; padding: 10px 18px; border-radius: 8px; background: var(--blau-marí); color:#fff; font-weight:700; border:0; cursor:pointer;
+  transition: background .2s, transform .2s, box-shadow .2s;
+}
+.cta-btn:hover { background: #3b6ba8; transform: translateY(-1px); box-shadow: 0 10px 20px rgba(10,35,80,0.22); }
+
+.menu-toggle{ display:none; background: none; border:0; cursor:pointer; }
+.menu-toggle span { width: 24px; height:2px; background: var(--gris-fosc); display:block; margin:4px 0; }
+
+.section-hero {
+  max-width: 1180px; margin:0 auto; padding: 72px 20px 70px;
+  display:grid; grid-template-columns: repeat(12,1fr); gap:30px; align-items:center;
+}
+.hero-copy { grid-column: 1 / span 6; }
+.hero-copy h2 {
+  font-size: clamp(2rem,3.5vw,3.2rem); color: var(--blau-marí); line-height:1.13; margin-bottom: 20px; font-weight:800;
+}
+.hero-copy p { max-width: 620px; font-size:1.07rem; color:#43506a; margin-bottom: 30px; line-height:1.7; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+.hero-actions .btn { min-width: 155px; padding: 12px 17px; border-radius: 8px; font-weight:700; text-align:center; border:2px solid transparent; transition:.2s; }
+.btn-primary { background: var(--blau-marí); color:#fff; border-color: var(--blau-marí); }
+.btn-primary:hover{ background: #2c5ea5; }
+.btn-outline { background: #fff; color: var(--blau-marí); border-color: var(--blau-marí); }
+.btn-outline:hover{ background: var(--blau-suau); }
+
+.hero-visual { grid-column: 7 / span 6; display:flex; justify-content:center; align-items:center; }
+.hero-visual .card {
+  background: linear-gradient(150deg, #f6f9fd 0%, #e9f3ff 100%);
+  border-radius: 20px; box-shadow: var(--shadow); border:1px solid #dee9f6;
+  padding: 20px; width: 100%; max-width: 520px;
+}
+.hero-visual img { width: 100%; border-radius: 14px; }
+
+.section { max-width:1180px; margin:0 auto; padding: 55px 20px; }
+.section h3 { font-size:1.8rem; color: var(--blau-marí); margin-bottom: 22px; }
+
+.card-grid { display:grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap:18px; }
+.service-card, .profile-card, .project-card {
+  background: #fff; border:1px solid var(--gris-clar); border-radius: 14px; box-shadow: var(--shadow); padding: 18px;
+  transition: transform .2s, box-shadow .2s;
+}
+.service-card:hover, .profile-card:hover, .project-card:hover { transform: translateY(-4px); box-shadow: 0 14px 28px rgba(13, 32, 60, 0.18); }
+.service-icon {
+  width:44px; height:44px; border-radius: 50%; background:#e8f2fd; display:flex; align-items:center; justify-content:center; margin-bottom:9px;
+}
+.service-icon svg { width: 22px; height:22px; fill:var(--blau-mitjà); }
+.service-card h4 { margin:0 0 8px; color: var(--blau-marí); font-size:1.06rem; }
+.service-card p { margin:0; font-size:0.95rem; color:#556a83; line-height:1.6; }
+
+.about-grid, .team-grid { display:grid; gap:16px; }
+.about-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.about-block { background:#fff; border:1px solid var(--gris-clar); border-radius: 14px; padding:18px; box-shadow: var(--shadow); }
+.about-block h4 { margin:0 0 10px; color: var(--blau-marí); }
+.about-block p { margin:0; color:#4f5f76; line-height:1.65; }
+
+.profile-card img {
+  width:64px; height:64px; border-radius: 50%; margin-bottom: 12px;
+}
+.profile-card h4 { margin:0; font-size:1rem; color: var(--blau-marí); }
+.profile-card span { color:#5f7288; font-size:0.9rem; }
+
+.project-grid { display:grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap:14px; }
+.project-card img { width:100%; border-radius: 12px; margin-bottom: 10px; }
+.project-card h5 { margin:6px 0 0; font-size:1rem; }
+
+.contact-grid { display:grid; grid-template-columns: 2fr 1fr; gap:18px; }
+.contact-form, .contact-info {
+  background:#fff; border:1px solid var(--gris-clar); border-radius:14px; padding: 20px; box-shadow: var(--shadow);
+}
+.contact-form h4, .contact-info h4 { color: var(--blau-marí); margin-top:0;}
+.contact-form input, .contact-form textarea {
+  width:100%; border:1px solid #c8d3e2; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;
+  font:inherit; color:#20324f; background:#fafcff;
+}
+.contact-form button { border:0; border-radius:8px; padding: 10px 14px; background: var(--blau-marí); color:#fff; font-weight:600; cursor:pointer; transition: background .2s; }
+.contact-form button:hover{ background:#2d5ea6; }
+.contact-info p{ font-size:0.95rem; color:#526475; margin: 8px 0; }
+.contact-info a{color: var(--blau-mitjà); text-decoration:underline;}
+.map-placeholder {
+  width:100%; height: 190px; margin-top: 10px; border-radius: 12px; background: linear-gradient(160deg, #dfe8f4, #e9f2fa);
+  border:1px solid #c9d4e2;
+}
+
+.separator{ height:1px; background:var(--gris-clar); border:none; margin: 35px 0; }
+
+@media (max-width: 1024px) {
+  .section-hero { grid-template-columns: 1fr; text-align:center; }
+  .hero-copy { grid-column:1; }
+  .hero-visual { grid-column:1; }
+  .card-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .about-grid { grid-template-columns: 1fr;}
+  .project-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 820px) {
+  .nav-inner { padding: 12px 16px; }
+  .nav-links { gap:14px; }
+  .menu-toggle{ display:block; }
+  .nav-links, .cta-btn{ display:none; }
+  .nav-open .nav-links { display:flex; flex-direction:column; position:absolute; top:72px; left:0; right:0;
+    background: rgba(255,255,255,0.98); border-top: 1px solid var(--gris-clar); padding: 15px 22px; }
+  .nav-open .cta-btn{ display:inline-flex; margin: 12px 0 2px 0; }
+  header { padding-bottom: 2px; }
+  .brand h1 { font-size:1.45rem; }
+}
+@media (max-width: 520px) {
+  .hero-copy h2 { font-size:2rem; }
+  .hero-copy p { font-size: 0.98rem; }
+  .card-grid, .project-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .section { padding: 40px 14px; }
+}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="nav-inner">
+    <div class="brand">
+      <h1>BE</h1>
+      <span>electronic sistems</span>
+    </div>
+    <button class="menu-toggle" aria-label="Obrir el menú" onclick="document.body.classList.toggle('nav-open')">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" aria-label="Navegació principal">
+      <a href="#empresa">Empresa</a>
+      <a href="#serveis">Serveis</a>
+      <a href="#quisom">Qui som</a>
+      <a href="#equip">El nostre equip</a>
+      <a href="#projectes">Projectes</a>
+      <a href="#contacte">Contacte</a>
+    </nav>
+    <button class="cta-btn" onclick="location.href='#contacte'">Demana pressupost</button>
+  </div>
+</header>
+
+<main>
+<section class="section-hero">
+  <div class="hero-copy">
+    <h2>Solucions elèctriques i electròniques per a instal·lacions modernes.</h2>
+    <p>Instal·lacions, manteniment i sistemes electrònics amb acabats professionals per a llars, negocis i indústria.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#contacte">Demana pressupost</a>
+      <a class="btn btn-outline" href="#serveis">Veure serveis</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1560126850-e8f94d9d757a?auto=format&fit=crop&w=1200&q=80" alt="Quadre elèctric modern i cablejat net" />
+    </div>
+  </div>
+</section>
+
+<section id="serveis" class="section">
+  <h3>Serveis</h3>
+  <div class="card-grid">
+    <article class="service-card">
+      <div class="service-icon"> 
+        <svg viewBox="0 0 24 24"><path d="M12 2l3 7h-6l3-7zm6 8h-2v12h2v-12zm-10 0H6v12h2v-12zm2-8l-3 7h6l-3-7z"/></svg>
+      </div>
+      <h4>Instal·lacions elèctriques</h4>
+      <p>Projectes sota normativa, distribució segura i cablejat eficient per a tot tipus d’edificis.</p>
+    </article>
+    <article class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M11 2h2v4h-2zm0 6h2v14h-2z"/></svg>
+      </div>
+      <h4>Sistemes electrònics i automatització</h4>
+      <p>Control de processos, sensors intel·ligents i integració IoT per a gestió i eficiència.</p>
+    </article>
+    <article class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M7 3h10v2H7V3zm0 4h10v2H7V7zm0 4h10v2H7v-2zm0 4h10v2H7v-2z"/></svg>
+      </div>
+      <h4>Manteniment i revisions</h4>
+      <p>Contracts preventius i revisions periòdiques per prolongar vida útil i seguretat dels equips.</p>
+    </article>
+    <article class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.25 3.66 10.74 9 12 5.34-1.26 9-6.75 9-12V5l-9-4z"/></svg>
+      </div>
+      <h4>Diagnosi i reparació</h4>
+      <p>Localització d’avaries, reparació ràpida i informe clar per a decisió immediata.</p>
+    </article>
+    <article class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2l4 6h-8l4-6zm0 4.5l-2 3.25h4l-2-3.25zM4 20h16v2H4v-2z"/></svg>
+      </div>
+      <h4>Domòtica / control</h4>
+      <p>Solucions intel·ligents per a automatització d’il·luminació, climatització i seguretat.</p>
+    </article>
+  </div>
+</section>
+
+<hr class="separator" />
+
+<section id="empresa" class="section">
+  <h3>Empresa / Qui som</h3>
+  <div class="about-grid">
+    <div class="about-block">
+      <h4>Sobre BE electronic sistems</h4>
+      <p>Empresa especialitzada en instal·lacions elèctriques i electròniques de qualitat, amb trajectòria en sectors residencials, comercials i industrials. Apostem per la seguretat, la performance i innovació tècnica.</p>
+    </div>
+    <div class="about-block">
+      <h4>Valors</h4>
+      <ul style="list-style:none; padding-left:0; color:#4a5a6e; margin:0;">
+        <li>• Qualitat certificada</li>
+        <li>• Seguretat i compliment normatiu</li>
+        <li>• Puntualitat i responsabilitat</li>
+        <li>• Transparència i suport continu</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="separator" />
+
+<section id="equip" class="section">
+  <h3>El nostre equip</h3>
+  <div class="team-grid profile-card" style="grid-template-columns: repeat(4,minmax(0,1fr));">
+    <article class="profile-card">
+      <img src="https://i.pravatar.cc/100?img=3" alt="Tècnic 1"/>
+      <h4>Anna Crespo</h4><span>Enginyera elèctrica</span>
+    </article>
+    <article class="profile-card">
+      <img src="https://i.pravatar.cc/100?img=5" alt="Tècnic 2"/>
+      <h4>Joan Mas</h4><span>Cap d’Automatització</span>
+    </article>
+    <article class="profile-card">
+      <img src="https://i.pravatar.cc/100?img=12" alt="Tècnic 3"/>
+      <h4>Laura Picón</h4><span>Tècnica de manteniment</span>
+    </article>
+    <article class="profile-card">
+      <img src="https://i.pravatar.cc/100?img=7" alt="Tècnic 4"/>
+      <h4>Miquel Riera</h4><span>Project Manager</span>
+    </article>
+  </div>
+</section>
+
+<hr class="separator" />
+
+<section id="projectes" class="section">
+  <h3>Projectes</h3>
+  <div class="project-grid">
+    <article class="project-card">
+      <img src="https://images.unsplash.com/photo-1542223616-cc9f6c2e27b0?auto=format&fit=crop&w=1000&q=80" alt="Projecte A"/>
+      <h5>Instal·lació industrial renovada</h5>
+    </article>
+    <article class="project-card">
+      <img src="https://images.unsplash.com/photo-1581093588401-20c5343b766f?auto=format&fit=crop&w=1000&q=80" alt="Projecte B"/>
+      <h5>Sistema domòtic per a comunitat</h5>
+    </article>
+    <article class="project-card">
+      <img src="https://images.unsplash.com/photo-1512981877450-8f8d5f0e878e?auto=format&fit=crop&w=1000&q=80" alt="Projecte C"/>
+      <h5>Quadre elèctric modular i segur</h5>
+    </article>
+  </div>
+</section>
+
+<hr class="separator" />
+
+<section id="contacte" class="section">
+  <h3>Contacte</h3>
+  <div class="contact-grid">
+    <div class="contact-form">
+      <h4>Envia’ns un missatge</h4>
+      <form>
+        <input type="text" placeholder="Nom complet" required />
+        <input type="email" placeholder="Correu electrònic" required />
+        <input type="tel" placeholder="Telèfon" required />
+        <textarea rows="5" placeholder="Descripció del projecte o consulta"></textarea>
+        <button type="submit">Enviar sol·licitud</button>
+      </form>
+    </div>
+    <div class="contact-info">
+      <h4>Detalls de contacte</h4>
+      <p><strong>Telèfon:</strong> <a href="tel:+34987654321">+34 987 654 321</a></p>
+      <p><strong>Correu:</strong> <a href="mailto:info@be-electronic.cat">info@be-electronic.cat</a></p>
+      <p><strong>Ubicació:</strong> C/ Innovació 21, 08001 Barcelona</p>
+      <div class="map-placeholder">Mapa d’ubicació (placeholder)</div>
+    </div>
+  </div>
+</section>
+</main>
+</body>
+</html>
